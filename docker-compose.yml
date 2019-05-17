@@ -16,6 +16,9 @@ services:
 
   php72:
     image: warneryang/php72
+    ports:
+      - "1234:1234"
+      - "9502:9502"
     volumes:
       - ${SOURCE_DIR}:/var/www/html/:rw
       - ${PHP72_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro

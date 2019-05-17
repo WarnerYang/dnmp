@@ -1,21 +1,18 @@
-[TOC]
+# 自用docker环境
 ## 说明
-基于[此源码](https://github.com/yeszao/dnmp)修改
-重新打包了php7.2，集成常用扩展 redis swoole amqp
+基于[此仓库](https://github.com/yeszao/dnmp)修改，感谢贡献这么优秀的源码。重新打包了php7.2，集成常用扩展redis、swoole、amqp，方便使用。
 
 ## Docker compose所包含的镜像介绍
-
- - warneryang/php72  php7.2 自建镜像，包含常用扩展 redis swoole amqp等扩展
+ - [warneryang/php72](https://hub.docker.com/r/warneryang/php72) 自建php7.2镜像，集成常用redis、swoole、amqp等扩展
  - nginx  nginx官方镜像
  - redis  redis官方镜像
- - phpmyadmin/phpmyadmin   phpmyadmin web数据库管理
- - mysql mysql 5.6 
- - rabbitmq rabbitmq 官方镜像
- - erikdubbelboer/phpredisadmin  phpredisadmin redis web 管理工具，windows环境可以使用桌面工具进行管理
+ - mysql mysql官方镜像
+ - rabbitmq rabbitmq官方镜像
+  - phpmyadmin/phpmyadmin 数据库web管理（默认去掉，可用桌面端代替）
+ - erikdubbelboer/phpredisadmin redis的web管理（默认去掉，可用桌面端代替）
 
 
 ## 如何使用
-- 安装完成之后本地会生成6个镜像，并且会创建对应的六个容器  
 - 启动之前请先关闭本地的 nginx apache 和 redis 防止端口占用启动失败
 
 1. 本地安装`git`、`docker`和`docker-compose`。
@@ -32,7 +29,10 @@
     $ cd dnmp
     $ cp env.sample .env   # Windows系统请用copy命令，或者用编辑器打开后另存为.env
     $ docker-compose up
+
+    本人建议将.env中修改为SOURCE_DIR=../wwwroot，就是把网站更根目录移出去，目录层级过多不方便查看
     ```
+
 5. 访问在浏览器中访问：
 
  - [http://localhost](http://localhost)： 默认*http*站点
@@ -98,11 +98,20 @@ docker ps 查看正在运行的容器
 docker ps -a  查看所有容器 
 
 #执行容器内的 命令
-docker exec -it  dnmp_php72_1 /bin/bash -c 'cd /var/www/html/tp5 && php think'
+docker exec -it  dnmp_php72_1 /bin/bash -c 'cd /var/www/html/localhost && php test.php'
 
 # 重启nginx
 docker exec -it dnmp_nginx_1 nginx -s reload
 
 # 进入php容器
 docker exec -it  dnmp_php72_1
+
+# 查看容器ip
+docker inspect 容器名称或 id
+如：docker inspect dnmp_php72_1
+
+# 端口映射 可直接在docker-compose.yml对应容器中加入以下参数，docker-compose up 即可
+    ports:
+      - "9502:9502"
+
 ```
