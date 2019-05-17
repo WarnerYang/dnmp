@@ -30,7 +30,7 @@
     $ cp env.sample .env   # Windows系统请用copy命令，或者用编辑器打开后另存为.env
     $ docker-compose up
 
-    本人建议将.env中修改为SOURCE_DIR=../wwwroot，就是把网站更根目录移出去，目录层级过多不方便查看
+    本人建议将.env中修改为SOURCE_DIR=../wwwroot，就是把网站根目录移出去，目录层级过多不方便查看
     ```
 
 5. 访问在浏览器中访问：
