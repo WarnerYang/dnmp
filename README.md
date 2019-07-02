@@ -129,8 +129,8 @@ xdebug.remote_autostart=1
 
 extension=amqp.so
 ```
-2. 在vscode中安装PHP Debug插件，在调试选项卡中打开齿轮配置，即当前项目
-``` json
+2. 在vscode中安装PHP Debug插件，在调试选项卡中打开齿轮配置，即当前项目的.vscode/launch.json，对照以下内容配置：
+``` javascript
 {
     // 使用 IntelliSense 了解相关属性。 
     // 悬停以查看现有属性的描述。
