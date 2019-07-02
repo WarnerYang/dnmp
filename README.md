@@ -116,4 +116,45 @@ docker inspect 容器名称或 id
 
 ```
 
-## VSCode 使用 Xdebug
+## 在VSCode中使用Xdebug
+1. 修改conf/php.ini，在文件末尾添加以下内容：
+
+```shell
+[xdebug]
+xdebug.remote_port=9000
+xdebug.remote_enable=1
+xdebug.remote_host=172.21.201.65 ;这里的host为电脑的IP
+xdebug.remote_autostart=1
+# xdebug.remote_log="/var/log/xdebug.log"
+
+extension=amqp.so
+```
+2. 在vscode中安装PHP Debug插件，在调试选项卡中打开齿轮配置，即当前项目
+``` json
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for XDebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9000,
+            "pathMappings": {
+                "/var/www/html": "${workspaceRoot}"
+            }
+        },
+        {
+            "name": "Launch currently open script",
+            "type": "php",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${fileDirname}",
+            "port": 9000
+        }
+    ]
+}
+```
+3. 重启php容器
