@@ -115,3 +115,5 @@ docker inspect 容器名称或 id
       - "9502:9502"
 
 ```
+
+## VSCode 使用 Xdebug
