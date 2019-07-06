@@ -29,9 +29,8 @@
     $ cd dnmp
     $ cp env.sample .env   # Windows系统请用copy命令，或者用编辑器打开后另存为.env
     $ docker-compose up
-
-    本人建议将.env中修改为SOURCE_DIR=../wwwroot，就是把网站根目录移出去，目录层级过多不方便查看
     ```
+    >本人建议将.env中修改为SOURCE_DIR=../wwwroot，就是把网站根目录移出去，目录层级过多不方便查看。以后项目文件就放在和dnmp同级的wwwroot下（wwwroot需手动创建）
 
 5. 访问在浏览器中访问：
 
@@ -115,3 +114,57 @@ docker inspect 容器名称或 id
       - "9502:9502"
 
 ```
+
+## 添加快捷命令
+在开发的时候，我们可能经常使用docker exec -it切换到容器中，把常用的做成命令别名是个省事的方法。
+
+打开~/.bashrc，加上一下代码，然后 source ~/.bashrc 重新打开命令行窗口就可以了用别名了
+```
+alias dnginx='docker exec -it dnmp_nginx_1 /bin/sh'
+alias dphp72='docker exec -it dnmp_php72_1 /bin/sh'
+alias dmysql='docker exec -it dnmp_mysql_1 /bin/bash'
+alias dredis='docker exec -it dnmp_redis_1 /bin/sh'
+```
+
+## 在VSCode中使用Xdebug
+1. 修改conf/php.ini，在文件末尾添加以下内容：
+
+```shell
+[xdebug]
+xdebug.remote_port=9000
+xdebug.remote_enable=1
+xdebug.remote_host=172.21.201.65 ;这里的host为电脑的IP
+xdebug.remote_autostart=1
+# xdebug.remote_log="/var/log/xdebug.log"
+
+extension=amqp.so
+```
+2. 在vscode中安装PHP Debug插件，在调试选项卡中打开齿轮配置，即当前项目的.vscode/launch.json，对照以下内容配置：
+``` javascript
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for XDebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9000,
+            "pathMappings": {
+                "/var/www/html": "${workspaceRoot}"
+            }
+        },
+        {
+            "name": "Launch currently open script",
+            "type": "php",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${fileDirname}",
+            "port": 9000
+        }
+    ]
+}
+```
+3. 重启php容器
