@@ -139,8 +139,9 @@ xdebug.remote_autostart=1
 
 extension=amqp.so
 ```
-2. 在vscode中安装PHP Debug插件，在调试选项卡中打开齿轮配置，即当前项目的.vscode/launch.json，对照以下内容配置：
-``` javascript
+
+2. 在vscode中安装PHP Debug插件，在调试选项卡中打开齿轮配置，即当前网站根目录的`.vscode/launch.json`
+``` json
 {
     // 使用 IntelliSense 了解相关属性。 
     // 悬停以查看现有属性的描述。
@@ -155,16 +156,48 @@ extension=amqp.so
             "pathMappings": {
                 "/var/www/html": "${workspaceRoot}"
             }
-        },
-        {
-            "name": "Launch currently open script",
-            "type": "php",
-            "request": "launch",
-            "program": "${file}",
-            "cwd": "${fileDirname}",
-            "port": 9000
         }
     ]
 }
 ```
+
+或者在单个项目 如：`laravel/.vscode/launch.json`
+``` json
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for PHP",
+            "type": "php",
+            "request": "launch",
+            "port": 9000,
+            "pathMappings": {
+                "/var/www/html/laravel": "${workspaceFolder}"
+            }
+        }
+    ]
+}
+```
+
+另外附赠`nodejs`配置，单个项目单独配置如 `express/.vscode/launch.json`，`server.js`为项目启动文件
+```json
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for node",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/server.js"
+        }
+    ]
+}
+```
+
 3. 重启php容器
