@@ -139,13 +139,9 @@ xdebug.remote_autostart=1
 
 extension=amqp.so
 ```
-
 2. 在vscode中安装PHP Debug插件，在调试选项卡中打开齿轮配置，即当前网站根目录的`.vscode/launch.json`
 ``` json
 {
-    // 使用 IntelliSense 了解相关属性。 
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
@@ -164,9 +160,6 @@ extension=amqp.so
 或者在单个项目 如：`laravel/.vscode/launch.json`
 ``` json
 {
-    // 使用 IntelliSense 了解相关属性。 
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
@@ -185,9 +178,6 @@ extension=amqp.so
 另外附赠`nodejs`配置，单个项目单独配置如 `express/.vscode/launch.json`，`server.js`为项目启动文件
 ```json
 {
-    // 使用 IntelliSense 了解相关属性。 
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
