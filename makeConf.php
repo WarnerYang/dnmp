@@ -2,13 +2,13 @@
 if (!is_file('.env')) die('请检查.env文件是否存在');
 $env = parse_ini_file('.env', true);
 define('WWWROOT', $env['SOURCE_DIR']);
-define('CONF_DIR', __DIR__ . '/' . 'conf/conf.d/');
+define('CONF_DIR', __DIR__ . '/conf/conf.d/');
 define('SUFFIX', '.test');
 define('IGNORE_DIR', ['.', '..', '.DS_Store', '.vscode']);
 define('RESOLVE_SON_DIR', ['php-framework']);
 // sudo chmod 777 /private/etc/hosts
 define('HOSTS_MAC', '/private/etc/hosts');
-define('HOSTS_WINDOWS', '/C:\Windows\System32\drivers\etc\hosts');
+define('HOSTS_WINDOWS', 'C:\Windows\System32\drivers\etc\hosts');
 $hosts = is_file(HOSTS_MAC) ? HOSTS_MAC : (is_file(HOSTS_WINDOWS) ? HOSTS_WINDOWS : die('请检查hosts文件是否存在'));
 define('HOSTS', $hosts);
 
